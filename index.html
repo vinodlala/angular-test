@@ -1,0 +1,98 @@
+<!doctype html>
+<html ng-app="doctorFinderApp">
+<head>
+
+    <title>Doctor Finder</title>
+
+    <style type="text/css">
+
+        h1 {
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: Arial, sans-serif;
+        }
+
+        ul {
+            overflow: scroll;
+            height: 200px;
+            list-style-type: none;
+            width: 90%;
+            padding: 0;
+            margin: 0 auto 0 auto;
+        }
+
+        ul > li {
+            margin: 10px auto 0 auto;
+            border: 2px solid black;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .address {
+            color: blue;
+        }
+
+        .address:hover {
+            text-decoration: underline;
+        }
+
+        #map-canvas-container {
+            height: 320px;
+            width: 90%;
+            margin: 0 auto 10px auto;
+            padding: 0;
+            border: 2px solid black;
+        }
+
+        #map-canvas {
+            height: 300px;
+            margin: 0 auto 0 auto;
+            padding: 0;
+            border: 10px solid lightblue;
+        }
+
+        label {
+            display: block;
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+
+<h1>Doctor Finder</h1>
+
+<div ng-controller="doctorFinderController">
+
+    <div id="map-canvas-container">
+        <div id="map-canvas"></div>
+    </div>
+    <ul>
+        <li ng-repeat="professional in professionals">
+            <label><span ng-show="{{ professional.degrees.indexOf('MD') > -1 }}">Dr. </span>{{ professional.name
+                }}</label>
+
+            <div ng-repeat="location in professional.locations">
+                <div ng-show="{{ professional.locations.length > 1}}">&nbsp</div>
+                <div ng-click="focusMap(location)" class="address">
+                    <label>{{ location.address.addr_line1 }}</label>
+                    <label>{{ location.address.addr_line2 }}</label>
+                    <label>{{ location.address.city }}, {{ location.address.state_code }}
+                        {{ location.address.postal_code }}</label>
+                </div>
+
+            </div>
+        </li>
+    </ul>
+</div>
+
+<script src="angular.min.js"></script>
+<script src="app.js"></script>
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4A_70ZzF9F8je-A5v51H0XgFOBfqeEVs">
+</script>
+</body>
+</html>
